@@ -9,11 +9,17 @@ import { map } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
 
-  firstObSubs: Subscription;
+  // WE USE SUBSCRIPTION BECAUSE SOME RXJS PACKAGES CONTINOUSLY RUNNING
+  // DUE TO THIS WE IMPORT SUBSCRIPTION PACKAGE TO UNSUBSCRIBE THEM LATER
+  // SOME PACKAGES UNSUBSCRIBE AUTOMATICALLY SUCH AS PARAMS AND HTTP
+  // WE RARELY USED CUSTOM OBSERVABLE
+  private firstObSubs: Subscription;
 
   constructor() { }
 
   ngOnInit(): void {
+
+    // CUSTOM OBSERVABLE WE IMPORT OBSERVABLE FROM RXJS
     const customObservable = new Observable<number>(observer => {
       let count = 0;
       const intervalId = setInterval(() => {
@@ -48,6 +54,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  // UNSUBSCRIBE
   ngOnDestroy(): void {
     this.firstObSubs.unsubscribe();
   }
